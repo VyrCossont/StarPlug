@@ -1,0 +1,15 @@
+[package]
+name = "starplug"
+authors = [ "Vyr Cossont" ]
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+buttplug = { version = "6.3.0", features = ["tokio-runtime", "client", "websockets"] }
+clap = { version = "4.0.30", features = ["derive"] }
+tokio = { version = "1.23.0", features = ["rt-multi-thread", "time", "sync", "process"] }
+tracing = "0.1.37"
+tracing-subscriber = "0.3.16"
+anyhow = "1.0.68"
+tempfile = "3.3.0"
+futures-util = "0.3.25"
