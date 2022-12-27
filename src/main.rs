@@ -34,11 +34,11 @@ struct Args {
     server: String,
 
     /// Don't vibrate below this APM.
-    #[arg(long, default_value_t = 40)]
+    #[arg(long, default_value_t = 60)]
     min_apm: i32,
 
     /// Max vibration at this APM.
-    #[arg(long, default_value_t = 100)]
+    #[arg(long, default_value_t = 120)]
     max_apm: i32,
 
     /// Show lldb errors (only useful for debugging, most aren't signficant).
