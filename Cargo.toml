@@ -5,11 +5,13 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-buttplug = { version = "6.3.0", features = ["tokio-runtime", "client", "websockets"] }
-clap = { version = "4.0.30", features = ["derive"] }
-tokio = { version = "1.23.0", features = ["rt-multi-thread", "time", "sync", "process"] }
+buttplug = { version = "6.3.0", features = [ "client", "tokio-runtime", "websockets" ] }
+clap = { version = "4.0.30", features = [ "derive" ] }
+tokio = { version = "1.23.0", features = [ "process", "rt-multi-thread", "signal", "sync", "time" ] }
 tracing = "0.1.37"
 tracing-subscriber = "0.3.16"
 anyhow = "1.0.68"
 tempfile = "3.3.0"
-futures-util = "0.3.25"
+futures = "0.3.25"
+sysinfo = "0.27.1"
+nix = "0.26.1"
