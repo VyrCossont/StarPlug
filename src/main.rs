@@ -58,6 +58,8 @@ async fn main() -> Result<()> {
         bail!("APM values cannot be negative!");
     }
 
+    check_prereqs().await?;
+
     info!("Type Ctrl-C to quit StarPlug.");
 
     info!("Connecting to Intiface…");
@@ -94,6 +96,21 @@ async fn main() -> Result<()> {
     }
 }
 
+async fn check_prereqs() -> Result<()> {
+    let exit_status = Command::new("lldb")
+        .arg("--version")
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .spawn()
+        .map_err(|e| anyhow!(e).context("Couldn't run `lldb --version`. Make sure it's installed by running `xcode-select --install`."))?
+        .wait()
+        .await?;
+    if !exit_status.success() {
+        bail!("`lldb --version` failed with status {exit_status}. Make sure it's installed by running `xcode-select --install`.");
+    }
+    Ok(())
+}
+
 /// Wait this long between attempts to connect to Intiface.
 const BUTTPLUG_WAIT: Duration = Duration::from_secs(5);
 
@@ -120,7 +137,7 @@ async fn connect_to_buttplug(server: String, client: Arc<Mutex<ButtplugClient>>)
         .await
         .start_scanning()
         .await
-        .map_err(|e| anyhow!(e))
+        .map_err(|e| anyhow!(e).context("Couldn't start scanning for vibrators."))
 }
 
 async fn stay_connected_to_buttplug(server: String, client: Arc<Mutex<ButtplugClient>>) {
